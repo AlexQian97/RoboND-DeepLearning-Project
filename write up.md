@@ -64,18 +64,22 @@ and add much more episodes. The batch size can be much higher when training in G
 
 ###results
 The learning curve is shown below.
-![learning curve](https://github.com/AlexQian97/RoboND-DeepLearning-Project/images/learning_curve.png)
+
+![learning curve](https://github.com/AlexQian97/RoboND-DeepLearning-Project/blob/master/images/learning_curve.png)
 
 Some test images are attached as well.
 
 The network can identify the target in close range.
-![result_1](https://github.com/AlexQian97/RoboND-DeepLearning-Project/images/result_1.png)
+
+![result_1](https://github.com/AlexQian97/RoboND-DeepLearning-Project/blob/master/images/result_1.png)
 
 Few false positive.
-![result_2](https://github.com/AlexQian97/RoboND-DeepLearning-Project/images/result_2.png)
+
+![result_2](https://github.com/AlexQian97/RoboND-DeepLearning-Project/blob/master/images/result_2.png)
 
 The network can identify the target from far away.
-![result_3](https://github.com/AlexQian97/RoboND-DeepLearning-Project/images/result_3.png)
+
+![result_3](https://github.com/AlexQian97/RoboND-DeepLearning-Project/blob/master/images/result_3.png)
 
 
 The final score is 0.521(52.1%), which is better than the minimum accuracy.
