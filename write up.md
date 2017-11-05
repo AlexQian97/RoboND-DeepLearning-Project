@@ -5,6 +5,10 @@
 Build a deep neural network to identify and track a target in simulation.
 
 ### Step 1: build a fully convolutional network (FCN)
+This image shows the structure of fully convolutional network.
+
+![fcn](https://github.com/AlexQian97/RoboND-DeepLearning-Project/blob/master/images/fcn.png)
+
 There are a few techniques used in the network
 ### Encoder
 The encoder layers are used for identifying useful information from the input images. More layers will help the network
@@ -12,7 +16,9 @@ learn higher level features.
 
 ### 1x1 convolution
 The 1x1 convolution layer is used when we want to flatten a convolution layer without loss of spatial information.
-In other words, it does not change the dimension of the input tensor.
+In other words, it does not change the dimension of the input tensor but just add more weights which can be trained.
+
+This layer is used after normal convolution operations.
 
 ### Decoder
 The decoder layers are used to upscale the output of the encoder layers to have a image of the same size as the original
@@ -32,9 +38,9 @@ def fcn_model(inputs, num_classes):
     layer_1 = encoder_block(inputs, 32, 2)
     layer_2 = encoder_block(layer_1, 64, 2)
     layer_3 = encoder_block(layer_2, 128, 2)
-    # TODO Add 1x1 Convolution layer using conv2d_batchnorm().
+    # Add 1x1 Convolution layer using conv2d_batchnorm().
     layer_4 = conv2d_batchnorm(layer_3, 256, kernel_size=1, strides=1)
-    # TODO: Add the same number of Decoder Blocks as the number of Encoder Blocks
+    # Add the same number of Decoder Blocks as the number of Encoder Blocks
     layer_5 = decoder_block(layer_4, layer_2, 128)
     layer_6 = decoder_block(layer_5, layer_1, 64)
     x = decoder_block(layer_6, inputs, 32)
@@ -44,7 +50,8 @@ def fcn_model(inputs, num_classes):
 ```
 where `encoder_block` is just one sepearable convolutional layer while the `decoder_block` has 3 sepearable convolutional 
 layer, which can help the network learns in my experiment. The improvement is especially useful when dealing with false 
-positive of other objects like tree and car.
+positive. However, there are no objects like car or animal in the training set. As a result, this network should perform
+terribly when dealing with new environments.
 
 ### Step 2: collect more data
 Several runs of data are collected by the guidance. After preprocessing, they are placed in `/train` and `/validation`.
@@ -59,8 +66,9 @@ steps_per_epoch = 100
 validation_steps = 50
 workers = 4
 ```
-This set of parameters comes from my previous experiment where the network is undertrained. I lowered the learning rate
-and add much more episodes. The batch size can be much higher when training in GPU instance but I forget to change it.
+This set of parameters comes from my previous experiment where the network is undertrained. I used `learning_rate = 0.01`
+ in my previous experiment, which is usually a good starting point. Then, I lowered the learning rate to 0.005 and add 
+ much more episodes (10 to 100). The batch size can be much higher when training on GPU instance but I forget to change it.
 
 ###results
 The learning curve is shown below.
@@ -83,3 +91,9 @@ The network can identify the target from far away.
 
 
 The final score is 0.521(52.1%), which is better than the minimum accuracy.
+
+### Future enhancements
+More data collection can definitely help the network to learn better. However, it will require more computational 
+resources to train the network.
+
+Three encoder and decoder blocks are used in this network, more blocks can enable higher level feature learning.
