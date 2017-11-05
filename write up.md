@@ -52,10 +52,11 @@ def fcn_model(inputs, num_classes):
     # The function returns the output layer of your model. "x" is the final layer obtained from the last decoder_block()
     return layers.Conv2D(num_classes, 1, activation='softmax', padding='same')(x)
 ```
-where `encoder_block` is just one sepearable convolutional layer while the `decoder_block` has 3 sepearable convolutional 
+where `encoder_block` is just one separable convolutional layer while the `decoder_block` has 3 separable convolutional 
 layer, which can help the network learns in my experiment. The improvement is especially useful when dealing with false 
 positive. However, there are no objects like car or animal in the training set. As a result, this network should perform
-terribly when dealing with new environments.
+terribly when dealing with new environments. To adapt to new environments, new training data is needed. If the result is 
+not good enough, deeper network might be required.
 
 ### Step 2: collect more data
 Several runs of data are collected by the guidance. After preprocessing, they are placed in `/train` and `/validation`.
