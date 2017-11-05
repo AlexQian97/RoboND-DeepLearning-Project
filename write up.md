@@ -11,25 +11,29 @@ This image shows the structure of fully convolutional network.
 
 There are a few techniques used in the network
 ### Encoder
-The encoder layers are used for identifying useful information from the input images. More layers will help the network
-learn higher level features.
+The encoder layers are used for extracting features from the input images. More layers will help the network
+learn higher level features. The separable covolutional layer is used, which reduces the number of parameters needed,
+thus increasing efficiency for the network.
 
 ### 1x1 convolution
-The 1x1 convolution layer is used when we want to flatten a convolution layer without loss of spatial information.
-In other words, it does not change the dimension of the input tensor but just add more weights which can be trained.
+In normal convolutional neural networks, the last layer is a fully connected layer, which flatten the input into a
+2-dimensional tensor. Such operation would lose the spatial information.
+
+As a result, the 1x1 convolution layer is used when we want to reduce the dimensionality without loss of spatial information.
+In other words, it is a cheap way to make the network deeper, without too much cost of computation. In addition, the input
+image can be of any dimension because of this layer.
 
 This layer is used after normal convolution operations.
 
 ### Decoder
 The decoder layers are used to upscale the output of the encoder layers to have a image of the same size as the original
-image. Therefore, prediction of each pixel in the original image can be obtained.
+image. Therefore, prediction of each pixel in the original image can be obtained. However, when we decode the output of 
+the image back to the original image size, some information is potentially lost. To retain the information, skip connections
+are used.
 
 ### Skip connections
-The skip connections allow the network use information from different resolution scales.
-
-### Final convolution layer
-The last convolution layer of the model is used to make the classification nof each pixel using the softmax activation
-function.
+The skip connections allow the network use information from different resolution scales. As a result, the network can make
+more precise segmentation decision.
 
 The model finally be used is shown here.
 ```python
