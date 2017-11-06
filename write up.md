@@ -58,6 +58,9 @@ positive. However, there are no objects like car or animal in the training set. 
 terribly when dealing with new environments. To adapt to new environments, new training data is needed. If the result is 
 not good enough, deeper network might be required.
 
+A terrible stretch is attached.
+![fcn_structure](https://github.com/AlexQian97/RoboND-DeepLearning-Project/blob/master/images/fcn_structure.png)
+
 ### Step 2: collect more data
 Several runs of data are collected by the guidance. After preprocessing, they are placed in `/train` and `/validation`.
 
@@ -71,9 +74,24 @@ steps_per_epoch = 100
 validation_steps = 50
 workers = 4
 ```
-This set of parameters comes from my previous experiment where the network is undertrained. I used `learning_rate = 0.01`
- in my previous experiment, which is usually a good starting point. Then, I lowered the learning rate to 0.005 and add 
- much more episodes (10 to 100). The batch size can be much higher when training on GPU instance but I forget to change it.
+1. learning rate
+Learning rate determines the speed of learning. Higher learning rate can lead to faster convergence but lower the final 
+accuracy. The lower learning rate can help the network get a good final result. `learning_rate = 0.01` was used in my 
+first experiment. However, the network is undertrained. As a result, I lowered it to 0.005.
+2. batch_size
+The batch_size is the number of inputs passed into the network at a time.
+The batch_size should be as high as possible under the condition that the machine has enough memory. 32 is set for my 
+laptop and I forget to change it when training on the GPU instance.
+3. num_epochs
+The num_epochs determines number of times the training data is passed into the network. I changed it from 10 to 100 for 
+more training with lower learning rate.
+4. steps_per_epoch
+The number of batches is determined by the total number of training images and the batch size.
+5. validation_steps
+Same thing, but for validation images this time
+6. workers
+Maximum number of processes to spin up. It could be set higher when training on the GPU instance as the hardware should 
+be good.
 
 ###results
 The learning curve is shown below.
