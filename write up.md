@@ -59,7 +59,8 @@ terribly when dealing with new environments. To adapt to new environments, new t
 not good enough, deeper network might be required.
 
 A terrible stretch is attached.
-![fcn_structure](https://github.com/AlexQian97/RoboND-DeepLearning-Project/blob/master/images/fcn_structure.png)
+
+![fcn_structure](https://github.com/AlexQian97/RoboND-DeepLearning-Project/blob/master/images/fcn_structure.jpeg)
 
 ### Step 2: collect more data
 Several runs of data are collected by the guidance. After preprocessing, they are placed in `/train` and `/validation`.
